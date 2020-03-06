@@ -48,6 +48,7 @@ USER agens
 
 RUN set -e
 RUN initdb
+RUN ag_ctl -w start -D /data && createdb agens && ag_ctl -D /data -m fast -w stop
 
 RUN sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" $AGDATA/postgresql.conf
 RUN echo "host	all	all	0.0.0.0/0	trust" >> $AGDATA/pg_hba.conf
@@ -55,4 +56,4 @@ RUN echo "host	all	all	0.0.0.0/0	trust" >> $AGDATA/pg_hba.conf
 EXPOSE 5432
 EXPOSE 8085
 
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["postgres"]
