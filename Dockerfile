@@ -23,7 +23,6 @@ COPY --from=builder /agens/bin /bin
 COPY --from=builder /agens/include /include
 COPY --from=builder /agens/lib /lib
 COPY --from=builder /agens/share /share
-COPY entrypoint.sh /entrypoint.sh
 
 RUN addgroup agens
 RUN adduser --system --disabled-password --no-create-home --ingroup agens agens
@@ -35,9 +34,6 @@ RUN chmod -R 700 /data
 RUN mkdir -p /logs
 RUN chown -R agens:agens /logs
 RUN chmod -R 700 /logs
-
-RUN chown -R agens:agens /entrypoint.sh
-RUN chmod -R 700 /entrypoint.sh
 
 ENV AGDATA=/data \
     PATH=/bin:$PATH \
